@@ -73,6 +73,7 @@ void setup() {
 }
 
 void loop() {
+  //webServer.handleClient();
   WiFiClient client = server.available();   // Listen for incoming clients
 
   if (client) {                             // If a new client connects,
@@ -93,7 +94,7 @@ void loop() {
             client.println("Content-type:text/html");
             client.println("Connection: close");
             client.println();
-
+      
             //WiFi.macAddress(client);
             //macConnected = "";
             //client[5] + client[4] + client[3] + client[2] + client[1] + client[0];
@@ -113,3 +114,4 @@ void loop() {
     Serial.println("");
   }
 }
+*/

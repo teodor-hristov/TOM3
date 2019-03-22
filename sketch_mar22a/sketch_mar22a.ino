@@ -12,7 +12,7 @@ const char* password = "artv_tom3";
 
 // Set web server port number to 80
 WiFiServer server(80);
-WiFi.Config
+
 // Variable to store the HTTP request
 String header;
 
@@ -32,7 +32,7 @@ void setup() {
   // Set outputs to LOW
   digitalWrite(output5, LOW);
   digitalWrite(output4, LOW);
-
+  WiFi.mode(WIFI_STA);
   // Connect to Wi-Fi network with SSID and password
   Serial.print("Connecting to ");
   Serial.println(ssid);
