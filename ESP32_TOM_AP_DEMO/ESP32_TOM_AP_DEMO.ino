@@ -43,6 +43,20 @@ void handleSentVar() {
     webServer.send(200, "text/html", "Data received");
   }
 }
+//==============================
+const int buttonPin = 14;    // the number of the pushbutton pin
+const int ledPin = 18;      // the number of the LED pin
+
+// Variables will change:
+int ledState = HIGH;         // the current state of the output pin
+int buttonState;             // the current reading from the input pin
+int lastButtonState = LOW;   // the previous reading from the input pin
+
+// the following variables are unsigned longs because the time, measured in
+// milliseconds, will quickly become a bigger number than can be stored in an int.
+unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
+unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
+//==============================
 
 void setup() {
   Serial.begin(115200);
@@ -52,6 +66,12 @@ void setup() {
   IPAddress gateway(192, 168, 4, 1);
   IPAddress subnet(255, 255, 255, 0);
   
+
+ pinMode(buttonPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+
+  // set initial LED state
+  digitalWrite(ledPin, ledState);
 
 
   // Connect to Wi-Fi network with SSID and password
@@ -73,9 +93,39 @@ void setup() {
 }
 
 void loop() {
+  int reading = digitalRead(buttonPin);
   //webServer.handleClient();
   WiFiClient client = server.available();   // Listen for incoming clients
+//======================
+    // If the switch changed, due to noise or pressing:
+  if (reading != lastButtonState) {
+    // reset the debouncing timer
+    lastDebounceTime = millis();
+  }
 
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (reading != buttonState) {
+      buttonState = reading;
+
+      // only toggle the LED if the new button state is HIGH
+      if (buttonState == HIGH) {
+        ledState = !ledState;
+      }
+    }
+  }
+
+  // set the LED:
+  digitalWrite(ledPin, ledState);
+
+  // save the reading. Next time through the loop, it'll be the lastButtonState:
+  lastButtonState = reading;
+            //======================
+
+            
   if (client) {                             // If a new client connects,
     Serial.println("New Client.");          // print a message out in the serial port
     String currentLine = "";                // make a String to hold incoming data from the client
@@ -94,14 +144,7 @@ void loop() {
             client.println("Content-type:text/html");
             client.println("Connection: close");
             client.println();
-      
-            //WiFi.macAddress(client);
-            //macConnected = "";
-            //client[5] + client[4] + client[3] + client[2] + client[1] + client[0];
 
-            //if (macConnected == macTest){
-            //  digitalWrite(recieverLed1, HIGH);
-            //}
           }
         }
       }
@@ -114,4 +157,3 @@ void loop() {
     Serial.println("");
   }
 }
-*/

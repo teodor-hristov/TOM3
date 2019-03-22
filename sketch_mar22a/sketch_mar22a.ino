@@ -10,6 +10,14 @@
 const char* ssid     = "ArtV";
 const char* password = "artv_tom3";
 
+  IPAddress ip(192, 168, 4, 11);  
+  //IPAddress dns(192, 168, 4, 1);
+  IPAddress gateway(192, 168, 4, 1);
+  IPAddress dns(192, 168, 4, 1);
+  IPAddress subnet(255, 255, 255, 0);
+
+
+
 // Set web server port number to 80
 WiFiServer server(80);
 
@@ -37,6 +45,7 @@ void setup() {
   Serial.print("Connecting to ");
   Serial.println(ssid);
   WiFi.begin(ssid, password);
+  WiFi.config(ip, dns, gateway, subnet); 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
