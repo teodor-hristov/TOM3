@@ -22,21 +22,21 @@ const char *password = "artv_tom3";
 WiFiServer server(80);
 
 // constants won't change. They're used here to set pin numbers:
-const int btnClient1 = 14;    // the number of the pushbutton pin
-const int btnClient2 = 12;//14
+const int btnClient1 = 12;    // the number of the pushbutton pin
+const int btnClient2 = 14;//14
 const int btnClient3 = 27;
 const int btnClient4 = 25;
 const int btnClient5 = 33;
 const int btnClient6 = 32;
 const int btnClientAll = 34;
 
-const int ledClient1 = 18;      
-const int ledClient2 = 18;//trqbva da e 0
-const int ledClient3 = 18;
-const int ledClient4 = 18;
-const int ledClient5 = 18;
-const int ledClient6 = 18;
-const int ledClientAll = 18;
+const int ledClient1 = 15;      
+const int ledClient2 = 0;//trqbva da e 0
+const int ledClient3 = 16;
+const int ledClient4 = 5;
+const int ledClient5 = 19;
+const int ledClient6 = 21;
+const int ledClientAll = 22;
 
 //CLIENT 1
 int ledStateClient1 = LOW;         // the current state of the output pin
