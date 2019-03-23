@@ -1,159 +1,200 @@
-/*********
-  Rui Santos
-  Complete project details at https://randomnerdtutorials.com
-*********/
+/*
+  WiFiAccessPoint.ino creates a WiFi access point and provides a web server on it.
 
-// Load Wi-Fi library
+  Steps:
+  1. Connect to the access point "yourAp"
+  2. Point your web browser to http://192.168.4.1/H to turn the LED on or http://192.168.4.1/L to turn it off
+     OR
+     Run raw TCP "GET /H" and "GET /L" on PuTTY terminal with 192.168.4.1 as IP address and 80 as port
+
+  Created for arduino-esp32 on 04 July, 2018
+  by Elochukwu Ifediora (fedy0)
+*/
+
 #include <WiFi.h>
-#include <WebServer.h>
+#include <WiFiClient.h>
+#include <HTTPClient.h>
 
-// Replace with your network credentials
-const char* ssid     = "ArtV";
-const char* password = "artv_tom3";
+// Set these to your desired credentials.
+const char *ssid = "ArtV";
+const char *password = "artv_tom3";
 
-// Set web server port number to 80
- WiFiServer server(80);
- WebServer webServer(8080);
+WiFiServer server(80);
 
-// Variable to store the HTTP request
-String header;
+// constants won't change. They're used here to set pin numbers:
+const int btnClient1 = 14;    // the number of the pushbutton pin
+const int btnClient2 = 12;//14
+const int btnClient3 = 27;
+const int btnClient4 = 25;
+const int btnClient5 = 33;
+const int btnClient6 = 32;
+const int btnClientAll = 34;
 
-// Led pins for connected device
-const int recieverLed1 = 2;
-const int recieverLed2 = 4;
-const int recieverLed3 = 17;
-const int recieverLed4 = 18;
+const int ledClient1 = 18;      
+const int ledClient2 = 18;//trqbva da e 0
+const int ledClient3 = 18;
+const int ledClient4 = 18;
+const int ledClient5 = 18;
+const int ledClient6 = 18;
+const int ledClientAll = 18;
 
-String macTest1 = "ac:c1:ee:75:6e:e5";
-String macConnected = "";
-
-// Assign output variables to GPIO pins
-const int pinForUser1 = 34;
-const int pinForUser2 = 35;
-const int pinForUser3 = 32;
-const int pinForUser4 = 33;
-const int pinForUser5 = 25;
-const int pinForUser6 = 26;
-
-void handleSentVar() {
-  if (webServer.hasArg("sensor_reading")) { // this is the variable sent from the client
-    int readingInt = webServer.arg("sensor_reading").toInt();
-    char readingToPrint[5];
-    itoa(readingInt, readingToPrint, 10); //integer to string conversion for OLED library
-    webServer.send(200, "text/html", "Data received");
-  }
-}
-//==============================
-const int buttonPin = 14;    // the number of the pushbutton pin
-const int ledPin = 18;      // the number of the LED pin
-
-// Variables will change:
-int ledState = HIGH;         // the current state of the output pin
-int buttonState;             // the current reading from the input pin
-int lastButtonState = LOW;   // the previous reading from the input pin
-
-// the following variables are unsigned longs because the time, measured in
-// milliseconds, will quickly become a bigger number than can be stored in an int.
-unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
+//CLIENT 1
+int ledStateClient1 = LOW;         // the current state of the output pin
+int buttonStateClient1;             // the current reading from the input pin
+int lastButtonStateClient1 = LOW;   // the previous reading from the input pin
+unsigned long lastDebounceTimeClient1 = 0;  // the last time the output pin was toggled
 unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
-//==============================
+
+//CLIENT 2
+int ledStateClient2 = LOW;         // the current state of the output pin
+int buttonStateClient2;             // the current reading from the input pin
+int lastButtonStateClient2 = LOW;   // the previous reading from the input pin
+unsigned long lastDebounceTimeClient2 = 0;  // the last time the output pin was toggled
+
+//CLIENT 3
+int ledStateClient3 = LOW;         // the current state of the output pin
+int buttonStateClient3;             // the current reading from the input pin
+int lastButtonStateClient3 = LOW;   // the previous reading from the input pin
+unsigned long lastDebounceTimeClient3 = 0;  // the last time the output pin was toggled
+
+
+//CLIENT 4
+int ledStateClient4 = LOW;         // the current state of the output pin
+int buttonStateClient4;             // the current reading from the input pin
+int lastButtonStateClient4 = LOW;   // the previous reading from the input pin
+unsigned long lastDebounceTimeClient4 = 0;  // the last time the output pin was toggled
+
+
+//CLIENT 5
+int ledStateClient5 = LOW;         // the current state of the output pin
+int buttonStateClient5;             // the current reading from the input pin
+int lastButtonStateClient5 = LOW;   // the previous reading from the input pin
+unsigned long lastDebounceTimeClient5 = 0;  // the last time the output pin was toggled
+
+
+//CLIENT 6
+int ledStateClient6 = LOW;         // the current state of the output pin
+int buttonStateClient6;             // the current reading from the input pin
+int lastButtonStateClient6 = LOW;   // the previous reading from the input pin
+unsigned long lastDebounceTimeClient6 = 0;  // the last time the output pin was toggled
+
+
+//CLIENT 7/ALL
+int ledStateClientAll = LOW;         // the current state of the output pin
+int buttonStateClientAll;             // the current reading from the input pin
+int lastButtonStateClientAll = LOW;   // the previous reading from the input pin
+unsigned long lastDebounceTimeClientAll = 0;  // the last time the output pin was toggled
+
+
 
 void setup() {
   Serial.begin(115200);
- // the IP address for the shield:
-  IPAddress ip(192, 168, 4, 1);  
+  Serial.println();
+  delay(400);
+  Serial.println("Configuring access point...");
+  IPAddress ip(192, 168, 4, 1);
   //IPAddress dns(192, 168, 4, 1);
   IPAddress gateway(192, 168, 4, 1);
   IPAddress subnet(255, 255, 255, 0);
-  
 
- pinMode(buttonPin, INPUT);
-  pinMode(ledPin, OUTPUT);
-
-  // set initial LED state
-  digitalWrite(ledPin, ledState);
-
-
-  // Connect to Wi-Fi network with SSID and password
-  Serial.print("Setting AP (Access Point)…");
-  
-  // Remove the password parameter, if you want the AP (Access Point) to be open
+  // You can remove the password parameter if you want the AP to be open.
   WiFi.softAP(ssid, password);
   WiFi.softAPConfig (ip, gateway, subnet);
-  
-  IPAddress IP = WiFi.softAPIP();
+  IPAddress myIP = WiFi.softAPIP();
   Serial.print("AP IP address: ");
-  Serial.println(IP);
-
+  Serial.println(myIP);
   server.begin();
+  Serial.println("Server started");
+
+  pinMode(btnClient1, INPUT);
+  pinMode(ledClient1, OUTPUT);
   
-  webServer.on("/data/", HTTP_GET, handleSentVar);
-  webServer.begin();
-  Serial.println("HTTP server started");
+  pinMode(btnClient2, INPUT);
+  pinMode(ledClient2, OUTPUT);
+  
+  pinMode(btnClient3, INPUT);
+  pinMode(ledClient3, OUTPUT);
+  
+  pinMode(btnClient4, INPUT);
+  pinMode(ledClient4, OUTPUT);
+  
+  pinMode(btnClient5, INPUT);
+  pinMode(ledClient5, OUTPUT);
+
+  pinMode(btnClient6, INPUT);
+  pinMode(ledClient6, OUTPUT);
+
+  pinMode(btnClientAll, INPUT);
+  pinMode(ledClientAll, OUTPUT);
+
+  // set initial LED state
+  digitalWrite(ledClient1, buttonStateClient1);
+  digitalWrite(ledClient2, buttonStateClient2);
+  digitalWrite(ledClient3, buttonStateClient3);
+  digitalWrite(ledClient4, buttonStateClient4);
+  digitalWrite(ledClient5, buttonStateClient5);
+  digitalWrite(ledClient6, buttonStateClient6);
+  digitalWrite(ledClientAll, buttonStateClientAll);
+
 }
 
 void loop() {
-  int reading = digitalRead(buttonPin);
-  //webServer.handleClient();
-  WiFiClient client = server.available();   // Listen for incoming clients
-//======================
-    // If the switch changed, due to noise or pressing:
-  if (reading != lastButtonState) {
+  HTTPClient http;
+  // read the state of the switch into a local variable:
+  int reading1 = digitalRead(btnClient1);
+  int reading2 = digitalRead(btnClient2);
+  int reading3 = digitalRead(btnClient3);
+  int reading4 = digitalRead(btnClient4);
+  int reading5 = digitalRead(btnClient5);
+  int reading6 = digitalRead(btnClient6);
+  int readingAll = digitalRead(btnClientAll);
+
+  // check to see if you just pressed the button
+  // (i.e. the input went from LOW to HIGH), and you've waited long enough
+  // since the last press to ignore any noise:
+
+  // If the switch changed, due to noise or pressing:
+  if (reading1 != lastButtonStateClient1) {
     // reset the debouncing timer
-    lastDebounceTime = millis();
+    lastDebounceTimeClient1 = millis();
   }
 
-  if ((millis() - lastDebounceTime) > debounceDelay) {
+  if ((millis() - lastDebounceTimeClient1) > debounceDelay) {
     // whatever the reading is at, it's been there for longer than the debounce
     // delay, so take it as the actual current state:
 
     // if the button state has changed:
-    if (reading != buttonState) {
-      buttonState = reading;
+    if (reading1 != buttonStateClient1) {
+      buttonStateClient1 = reading1;
 
       // only toggle the LED if the new button state is HIGH
-      if (buttonState == HIGH) {
-        ledState = !ledState;
+      if (buttonStateClient1 == HIGH) {
+        http.begin("http://192.168.4.11/4/on");
+        http.GET();
+        http.end();
+        ledStateClient1 = HIGH;
+        // set the LED:
+        digitalWrite(ledClient1, ledStateClient1);
+        delay(1000);
+        http.begin("http://192.168.4.11/4/off");
+        http.GET();
+        http.end();
+        ledStateClient1 = LOW;
+        // set the LED:
+        digitalWrite(ledClient1, ledStateClient1);
+        
       }
     }
   }
 
-  // set the LED:
-  digitalWrite(ledPin, ledState);
+  
 
   // save the reading. Next time through the loop, it'll be the lastButtonState:
-  lastButtonState = reading;
-            //======================
-
-            
-  if (client) {                             // If a new client connects,
-    Serial.println("New Client.");          // print a message out in the serial port
-    String currentLine = "";                // make a String to hold incoming data from the client
-    while (client.connected()) {            // loop while the client's connected
-      if (client.available()) {             // if there's bytes to read from the client,
-        char c = client.read();             // read a byte, then
-        Serial.write(c);                    // print it out the serial monitor
-        header += c;
-        if (c == '\n') {                    // if the byte is a newline character
-          // if the current line is blank, you got two newline characters in a row.
-          // that's the end of the client HTTP request, so send a response:
-          if (currentLine.length() == 0) {
-            // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
-            // and a content-type so the client knows what's coming, then a blank line:
-            client.println("HTTP/1.1 200 OK");
-            client.println("Content-type:text/html");
-            client.println("Connection: close");
-            client.println();
-
-          }
-        }
-      }
-    }
-    // Clear the header variable
-    header = "";
-    // Close the connection
-    client.stop();
-    Serial.println("Client disconnected.");
-    Serial.println("");
-  }
+  lastButtonStateClient1 = reading1;
+  lastButtonStateClient2 = reading2;
+  lastButtonStateClient3 = reading3;
+  lastButtonStateClient4 = reading4;
+  lastButtonStateClient5 = reading5;
+  lastButtonStateClient6 = reading6;
+  lastButtonStateClientAll = readingAll;
 }
