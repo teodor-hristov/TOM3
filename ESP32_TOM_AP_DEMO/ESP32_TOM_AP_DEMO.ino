@@ -30,7 +30,7 @@ const int btnClient5 = 33;
 const int btnClient6 = 32;
 const int btnClientAll = 34;
 
-const int ledClient1 = 15;      
+const int ledClient1 = 15;
 const int ledClient2 = 0;//trqbva da e 0
 const int ledClient3 = 16;
 const int ledClient4 = 5;
@@ -108,16 +108,16 @@ void setup() {
 
   pinMode(btnClient1, INPUT);
   pinMode(ledClient1, OUTPUT);
-  
+
   pinMode(btnClient2, INPUT);
   pinMode(ledClient2, OUTPUT);
-  
+
   pinMode(btnClient3, INPUT);
   pinMode(ledClient3, OUTPUT);
-  
+
   pinMode(btnClient4, INPUT);
   pinMode(ledClient4, OUTPUT);
-  
+
   pinMode(btnClient5, INPUT);
   pinMode(ledClient5, OUTPUT);
 
@@ -148,7 +148,7 @@ void loop() {
   int reading5 = digitalRead(btnClient5);
   int reading6 = digitalRead(btnClient6);
   int readingAll = digitalRead(btnClientAll);
-
+  //==========================CLIENT1=============
   // check to see if you just pressed the button
   // (i.e. the input went from LOW to HIGH), and you've waited long enough
   // since the last press to ignore any noise:
@@ -169,25 +169,251 @@ void loop() {
 
       // only toggle the LED if the new button state is HIGH
       if (buttonStateClient1 == HIGH) {
+        
+        ledStateClient1 = HIGH;
+      // set the LED:
+        digitalWrite(ledClient1, ledStateClient1);
+        
         http.begin("http://192.168.4.11/4/on");
         http.GET();
         http.end();
-        ledStateClient1 = HIGH;
-        // set the LED:
-        digitalWrite(ledClient1, ledStateClient1);
-        delay(1000);
-        http.begin("http://192.168.4.11/4/off");
-        http.GET();
-        http.end();
+        
         ledStateClient1 = LOW;
         // set the LED:
         digitalWrite(ledClient1, ledStateClient1);
-        
+
       }
     }
   }
+  //==========================================================
 
-  
+
+  //==========================CLIENT2=============
+  // check to see if you just pressed the button
+  // (i.e. the input went from LOW to HIGH), and you've waited long enough
+  // since the last press to ignore any noise:
+
+  // If the switch changed, due to noise or pressing:
+  if (reading2 != lastButtonStateClient2) {
+    // reset the debouncing timer
+    lastDebounceTimeClient2 = millis();
+  }
+
+  if ((millis() - lastDebounceTimeClient2) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (reading2 != buttonStateClient2) {
+      buttonStateClient2 = reading2;
+
+      // only toggle the LED if the new button state is HIGH
+      if (buttonStateClient2 == HIGH) {
+        http.begin("http://192.168.4.12/4/on");
+        http.GET();
+        http.end();
+        ledStateClient2 = HIGH;
+        // set the LED:
+        digitalWrite(ledClient2, ledStateClient2);
+        delay(1000);
+        ledStateClient2 = LOW;
+        // set the LED:
+        digitalWrite(ledClient2, ledStateClient2);
+
+      }
+    }
+  }
+  //==========================================================
+
+
+  //==========================CLIENT3=============
+  // check to see if you just pressed the button
+  // (i.e. the input went from LOW to HIGH), and you've waited long enough
+  // since the last press to ignore any noise:
+
+  // If the switch changed, due to noise or pressing:
+  if (reading3 != lastButtonStateClient3) {
+    // reset the debouncing timer
+    lastDebounceTimeClient3 = millis();
+  }
+
+  if ((millis() - lastDebounceTimeClient3) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (reading3 != buttonStateClient3) {
+      buttonStateClient3 = reading3;
+
+      // only toggle the LED if the new button state is HIGH
+      if (buttonStateClient3 == HIGH) {
+        http.begin("http://192.168.4.13/4/on");
+        http.GET();
+        http.end();
+        ledStateClient3 = HIGH;
+        // set the LED:
+        digitalWrite(ledClient3, ledStateClient3);
+        delay(1000);
+        ledStateClient3 = LOW;
+        // set the LED:
+        digitalWrite(ledClient3, ledStateClient3);
+
+      }
+    }
+  }
+  //==========================================================
+
+
+  //==========================CLIENT4=============
+  // check to see if you just pressed the button
+  // (i.e. the input went from LOW to HIGH), and you've waited long enough
+  // since the last press to ignore any noise:
+
+  // If the switch changed, due to noise or pressing:
+  if (reading4 != lastButtonStateClient4) {
+    // reset the debouncing timer
+    lastDebounceTimeClient4 = millis();
+  }
+
+  if ((millis() - lastDebounceTimeClient4) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (reading4 != buttonStateClient4) {
+      buttonStateClient4 = reading4;
+
+      // only toggle the LED if the new button state is HIGH
+      if (buttonStateClient4 == HIGH) {
+        http.begin("http://192.168.4.14/4/on");
+        http.GET();
+        http.end();
+        ledStateClient4 = HIGH;
+        // set the LED:
+        digitalWrite(ledClient4, ledStateClient4);
+        delay(1000);
+        ledStateClient4 = LOW;
+        // set the LED:
+        digitalWrite(ledClient4, ledStateClient4);
+
+      }
+    }
+  }
+  //==========================================================
+
+
+  //==========================CLIENT5=============
+  // check to see if you just pressed the button
+  // (i.e. the input went from LOW to HIGH), and you've waited long enough
+  // since the last press to ignore any noise:
+
+  // If the switch changed, due to noise or pressing:
+  if (reading5 != lastButtonStateClient5) {
+    // reset the debouncing timer
+    lastDebounceTimeClient5 = millis();
+  }
+
+  if ((millis() - lastDebounceTimeClient5) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (reading5 != buttonStateClient5) {
+      buttonStateClient5 = reading5;
+
+      // only toggle the LED if the new button state is HIGH
+      if (buttonStateClient5 == HIGH) {
+        http.begin("http://192.168.4.15/4/on");
+        http.GET();
+        http.end();
+        ledStateClient5 = HIGH;
+        // set the LED:
+        digitalWrite(ledClient5, ledStateClient5);
+        delay(1000);
+        ledStateClient5 = LOW;
+        // set the LED:
+        digitalWrite(ledClient5, ledStateClient5);
+
+      }
+    }
+  }
+  //==========================================================
+
+
+  //==========================CLIENT6=============
+  // check to see if you just pressed the button
+  // (i.e. the input went from LOW to HIGH), and you've waited long enough
+  // since the last press to ignore any noise:
+
+  // If the switch changed, due to noise or pressing:
+  if (reading6 != lastButtonStateClient6) {
+    // reset the debouncing timer
+    lastDebounceTimeClient6 = millis();
+  }
+
+  if ((millis() - lastDebounceTimeClient6) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (reading6 != buttonStateClient6) {
+      buttonStateClient6 = reading6;
+
+      // only toggle the LED if the new button state is HIGH
+      if (buttonStateClient6 == HIGH) {
+        http.begin("http://192.168.4.16/4/on");
+        http.GET();
+        http.end();
+        ledStateClient6 = HIGH;
+        // set the LED:
+        digitalWrite(ledClient6, ledStateClient6);
+        delay(1000);
+        ledStateClient6 = LOW;
+        // set the LED:
+        digitalWrite(ledClient6, ledStateClient6);
+
+      }
+    }
+  }
+  //==========================================================
+
+
+  //==========================CLIENT7/ALL=============
+  // check to see if you just pressed the button
+  // (i.e. the input went from LOW to HIGH), and you've waited long enough
+  // since the last press to ignore any noise:
+
+  // If the switch changed, due to noise or pressing:
+  if (readingAll != lastButtonStateClientAll) {
+    // reset the debouncing timer
+    lastDebounceTimeClientAll = millis();
+  }
+
+  if ((millis() - lastDebounceTimeClientAll) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (readingAll != buttonStateClientAll) {
+      buttonStateClientAll = readingAll;
+
+      // only toggle the LED if the new button state is HIGH
+      if (buttonStateClientAll == HIGH) {
+        http.begin("http://192.168.4.17/4/on");
+        http.GET();
+        http.end();
+        ledStateClientAll = HIGH;
+        // set the LED:
+        digitalWrite(ledClientAll, ledStateClientAll);
+        delay(1000);
+        ledStateClientAll = LOW;
+        // set the LED:
+        digitalWrite(ledClientAll, ledStateClientAll);
+
+      }
+    }
+  }
+  //==========================================================
 
   // save the reading. Next time through the loop, it'll be the lastButtonState:
   lastButtonStateClient1 = reading1;
