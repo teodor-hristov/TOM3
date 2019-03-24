@@ -1,61 +1,104 @@
-/*********
+ /*********                                                                                                          -:::.   .++++++++.     `..`                                    
+                                                                                                                  -o+:.`.:ohyh-      `/y++++/::/oo.                                 
+                                                                                                            `   `o+`    -oo- ./++///+++/-oo-     `+o`  `                            
+                                                                                                       `/+++//+hyo////++:`       ```      `:++////+ohy//++++`                       
+                                                                                                      :s.    -s/   ```                        ```   `+o`   .s:                      
+                                                                                                     -y..-:/+/`                                       -o+.  `y-                     
+                                                                                               `:/++sd+/:-.``                                           .:++/+d/::-`                
+                                                                                              /o-```y-                                                      ``-h..-/+/`             
+                                                                                             /o   `s:                    `+++`   :+++++:` +++++++-             :s`   -y`            
+                                                                                             d``-/o-                    `sysh-   yh+::sho ::shs::`              .o/-` :s            
+                                                                                           ./d++:.                     .sy-/h+  -hh-.-sy/  `yh:                   .:++/m.           
+                                                                                       `-/+:so`                       .shs+ohy  ohyoyy+-   :hy`                      `.h+++-`       
+                                                                                      -s:`  h.                       .sy+::/yh-`yh: /ys`   oho                         o/ `:s-      
+                                                                                      h.   +o                        -:-    ::.`::`  -:.   ::.                         .h   .h      
+                                                                                     `h `:o/     `---`  .----------`                            `-----------------`     +o`  h`     
+                                                                                     `m/+:`       -++/` `:+++////++:`                          `:++//////////++++-       -o/.d      
+                                                                                   `:od:           -++/` `:++/.``:++:`                         :++:`````````./++-          -om-`    
+                                                                                  -s: ++            -++/` `:++/` `:++:`                       :++:` `---.  `/++:            +o:o/`  
+                                                                                 .h`  :o             -++/`  :++/` `:++:`                    `:++:` `:++/` `/++:             o:  :s` 
+                                                                                 -s   o/              -++/`  :++/` `:++:                    :++:` `:++/` `/++:              /o   :s 
+                                                                                 `d` /s                -++/`  :++/` `:++:`                 :++/` `:++/` `/++:                s/  :s 
+                                                                                  :ys/                  -++/`  :++/` `/++:                :++/`  :++/` `/++:                  /s.h. 
+                                                                                  /ho                    -++/`  :++/` `/++:`             :++/`  :++/` `/++:                    .my  
+                                                                                `s/ y-                    -++/`  :++/` `/++:            :++/`  :++/` `/++:                     ++/s`
+                                                                                y:  .y                     -++/`  :++/` `/++:          :++/`  :++/` `/++:                     :y  :y
+                                                                                m   .h                      -++/`  :++/`  /++:        :++/`  :++/` `/++-                      h.   m
+                                                                                y:  y:                       -++/`  :++/` `:++:      :++/`  :++/` `/++-                       y.  :y
+                                                                                `s/++                         -++/`  :++/` `:++:`   :++/`  :++/` `/++-                        -y /s`
+                                                                                  sm.                          -++/`  :++/` `:++:``:++/`  :++:` `/++-                          oh/  
+                                                                                 .h.s/                          -++/`  :++/` `:++::++:` `:++:` `/++-                          /sy:  
+                                                                                 s:  /s                          -++/`  :++:` `:++++:` `:++:` `/++-                          s/ `d` 
+                                                                                 s:   o/                          -++/` `:++:` `:++:` `:++:` `/++-                          /o   s: 
+                                                                                 `s:  :o                           -++/` `:++:` `::` `:++:` `/++-                           o:  `h. 
+                                                                                  `/o:o+                            -++/` `:++:` `` `:++:` `/++-                            ++ :s-  
+                                                                                    `-mo-                            -++/` `:++:`  `:++:` `/++-                             :do:`   
+                                                                                      d./o-                           -++/` `:++:``:++:` `/++-                           `:+/m`     
+                                                                                     `h  `o+                           -++/` `:++::++:` `/++-                           /o:` h`     
+                                                                                      h.   h.                           -++/` `:++++:` `/++-                           ++`  .h      
+                                                                                      -s:` /o                            -++/` `:++:` `/++-                           .h  `:s-      
+                                                                                       `:/++h.`                           -++/` `::` `/++-                           `os:+/:`       
+                                                                                           .m/++:.                         -++/` `` `/++-                         .:++d/.           
+                                                                                            s: `-/o-                        -++/.``./++-                        -o/-``d             
+                                                                                            `y-   .s:                        -+++//+++:                        :s.   o/             
+                                                                                             `+o/-..h-``                      .------.                        -y```-o+              
+                                                                                                .-://d++++:.                                           ``.-:/+ds++/:`               
+                                                                                                     :y` `-+o-                                       `/+/:-..y:                     
+                                                                                                      :s.`  `o+`  ````                        ```` `/s-   `.s:                      
+                                                                                                       `++++/+yho++//+++:`     ````       `:+++//+oyh++/++++`                       
+                                                                                                           ``` `o+`     :oo-/+++//+++/.`-oo:    `+s`  ```                           
+                                                                                                                 .oo/::/++++y/`      -hyho:.`.:oo-                                  
+                                                                                                                    `..`     .++++++++.   .:/:-                                    
+
+
+
+
+
   Rui Santos
   Complete project details at http://randomnerdtutorials.com  
 *********/
 
-// Load Wi-Fi library
-#include <ESP8266WiFi.h>
+#include <ESP8266WiFi.h>                // Load Wi-Fi library
 
 // Replace with your network credentials
 const char* ssid     = "ArtV";
 const char* password = "artv_tom3";
 
-  IPAddress ip(192, 168, 4, 12);  
-  //IPAddress dns(192, 168, 4, 1);
-  IPAddress gateway(192, 168, 4, 1);
-  IPAddress dns(192, 168, 4, 1);
-  IPAddress subnet(255, 255, 255, 0);
+IPAddress ip(192, 168, 4, 12);           //Setting statuc ip address,dns,gateway
+IPAddress gateway(192, 168, 4, 1);
+IPAddress dns(192, 168, 4, 1);
+IPAddress subnet(255, 255, 255, 0);
 
+WiFiServer server(80);                    // Set web server port number to 80
 
+String header;                            // Variable to store the HTTP request
 
-// Set web server port number to 80
-WiFiServer server(80);
+String vibState = "off";                  // Auxiliar variables to store the current output state
 
-// Variable to store the HTTP request
-String header;
-
-// Auxiliar variables to store the current output state
-String output5State = "off";
-String output4State = "off";
-
-// Assign output variables to GPIO pins
-const int output5 = 5;
-const int output4 = 4;
+const int vib = 4;                        // Assign output variables to GPIO pins
 
 void setup() {
   Serial.begin(115200);
-  // Initialize the output variables as outputs
-  pinMode(output5, OUTPUT);
-  pinMode(output4, OUTPUT);
-  // Set outputs to LOW
-  digitalWrite(output5, LOW);
-  digitalWrite(output4, LOW);
-  WiFi.mode(WIFI_STA);
-  // Connect to Wi-Fi network with SSID and password
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
-  WiFi.config(ip, dns, gateway, subnet); 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+  
+  pinMode(vib, OUTPUT);                     // Initialize the output variables as outputs
+  
+  digitalWrite(vib, LOW);                   // Set outputs to LOW
+  WiFi.mode(WIFI_STA);                      //Setting wifi mode to station(not creating access point)
+  
+  Serial.print("Connecting to ");           // Printing to serial monitor 
+  Serial.println(ssid);                     // Printing to serial monitor
+  WiFi.begin(ssid, password);               // Connect to Wi-Fi network with SSID and password
+  WiFi.config(ip, dns, gateway, subnet);    // Apply wifi configuration
+  while (WiFi.status() != WL_CONNECTED) {   // while is not connected
+    delay(500); // wait 
+    Serial.print(".");                      // Print to serial monitor
   }
-  // Print local IP address and start web server
-  Serial.println("");
-  Serial.println("WiFi connected.");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-  server.begin();
+
+  Serial.println("");                       // Print local IP address and start web server
+  Serial.println("WiFi connected.");        // Print to serial monitor
+  Serial.println("IP address: ");           // Print to serial monitor
+  Serial.println(WiFi.localIP());           // Printing local ip
+  server.begin();                           // Building server
 }
 
 void loop(){
@@ -80,24 +123,15 @@ void loop(){
             client.println("Connection: close");
             client.println();
             
-            // turns the GPIOs on and off
-            if (header.indexOf("GET /5/on") >= 0) {
-              Serial.println("GPIO 5 on");
-              output5State = "on";
-              digitalWrite(output5, HIGH);
-            } else if (header.indexOf("GET /5/off") >= 0) {
-              Serial.println("GPIO 5 off");
-              output5State = "off";
-              digitalWrite(output5, LOW);
-            } else if (header.indexOf("GET /4/on") >= 0) {
+            if (header.indexOf("GET /4/on") >= 0) {
               Serial.println("GPIO 4 on");
-              output4State = "on";
-              digitalWrite(output4, HIGH);
+              vibState = "on";
+              digitalWrite(vib, HIGH);
               delay(1000);
-              output4State = "off";
-              digitalWrite(output4, LOW);
+              vibState = "off";
+              digitalWrite(vib, LOW);
             }
-            
+            //================================That is creating HTML page (you can use it if you want)===========================
             // Display the HTML web page
             client.println("<!DOCTYPE html><html>");
             client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
@@ -109,22 +143,13 @@ void loop(){
             client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
             client.println(".button2 {background-color: #77878A;}</style></head>");
             
-            // Web Page Heading
-            client.println("<body><h1>ESP8266 Web Server</h1>");
             
-            // Display current state, and ON/OFF buttons for GPIO 5  
-            client.println("<p>GPIO 5 - State " + output5State + "</p>");
-            // If the output5State is off, it displays the ON button       
-            if (output5State=="off") {
-              client.println("<p><a href=\"/5/on\"><button class=\"button\">ON</button></a></p>");
-            } else {
-              client.println("<p><a href=\"/5/off\"><button class=\"button button2\">OFF</button></a></p>");
-            } 
+            client.println("<body><h1>ESP8266 Web Server</h1>");// Web Page Heading
                
             // Display current state, and ON/OFF buttons for GPIO 4  
-            client.println("<p>GPIO 4 - State " + output4State + "</p>");
+            client.println("<p>GPIO 4 - State " + vibState + "</p>");
             // If the output4State is off, it displays the ON button       
-            if (output4State=="off") {
+            if (vibState=="off") {
               client.println("<p><a href=\"/4/on\"><button class=\"button\">ON</button></a></p>");
             } else {
               client.println("<p><a href=\"/4/off\"><button class=\"button button2\">OFF</button></a></p>");
@@ -134,20 +159,21 @@ void loop(){
             // The HTTP response ends with another blank line
             client.println();
             // Break out of the while loop
+            //=================================================================================================================
             break;
-          } else { // if you got a newline, then clear currentLine
+          } else {                           // if you got a newline, then clear currentLine
             currentLine = "";
           }
-        } else if (c != '\r') {  // if you got anything else but a carriage return character,
-          currentLine += c;      // add it to the end of the currentLine
+        } else if (c != '\r') {             // if you got anything else but a carriage return character,
+          currentLine += c;                 // add it to the end of the currentLine
         }
       }
     }
-    // Clear the header variable
-    header = "";
-    // Close the connection
-    client.stop();
-    Serial.println("Client disconnected.");
-    Serial.println("");
+    
+    header = "";                            // Clear the header variable
+    
+    client.stop();                          // Close the connection
+    Serial.println("Client disconnected.");// Printing to serial monitor
+    Serial.println("");                     // Printing to serial monitor
   }
 }
